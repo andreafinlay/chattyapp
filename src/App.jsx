@@ -8,7 +8,7 @@ class App extends Component {
 		super(props);
 
 		this.state = {
-			currentUser: {},
+			currentUser: { username: 'Anonymous' },
 			messages: []
 		};
 	}
@@ -22,29 +22,45 @@ class App extends Component {
 			console.log('Connected to server');
 		};
 
-			this.socket.onmessage = newMessage => {
-				const messages = JSON.parse(newMessage.data);
-				console.log(messages);
-				this.setState(prevState => ({ messages: [messages, ...prevState.messages] }))
-				console.log(this.state);
-			}
-	}
+    this.socket.onmessage = (event) => {
+
+      const parsedEvent = JSON.parse(event.data);
+
+      switch(parsedEvent.type) {
+        case "incomingMessage":
+          console.log(1, parsedEvent);
+          const messages = parsedEvent;
+          this.setState(prevState => ({ messages: [...prevState.messages, messages]}));
+          break;
+        case "incomingNotification":
+          console.log(2, parsedEvent);
+          const notification = parsedEvent;
+          this.setState(prevState => ({ messages: [...prevState.messages, notification]}));
+          break;
+        default:
+          throw new Error("Unknown event type " + data.type);
+      }
+    }
+  }
 
 	createNewMessage = newMessageInput => {
 		const newMessage = {
-			username: this.state.currentUser.name,
+			type: 'postMessage',
+			username: this.state.currentUser.username,
 			content: newMessageInput
 		};
 		this.socket.send(JSON.stringify(newMessage));
 	};
 
-	updateUser = newUserInput => {
+	updateUser = (newUserInput, oldUser) => {
 		const newUser = {
-			name: newUserInput
-		}
-		this.setState({ currentUser: newUser })
+			type: 'postNotification',
+			username: newUserInput,
+			oldUsername: oldUser
+		};
+		this.setState({ currentUser: newUser });
 		this.socket.send(JSON.stringify(newUser));
-	}
+	};
 
 	render() {
 		return (
@@ -56,7 +72,7 @@ class App extends Component {
 				</nav>
 				<MessageList messages={this.state.messages} />
 				<ChatBar
-					currentUser={this.state.currentUser}
+					username={this.state.currentUser.username}
 					createNewMessage={this.createNewMessage}
 					updateUser={this.updateUser}
 				/>
