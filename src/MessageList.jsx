@@ -7,7 +7,6 @@ class MessageList extends Component {
   render() {
 
     const messageComponent = this.props.messages.map(data => {
-      console.log('data', data);
       return data.type === 'incomingNotification' ? (<Notification
           key={data.id}
           username={data.oldUsername}

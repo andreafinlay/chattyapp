@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
-// import Message from './Message';
+import NavBar from './NavBar.jsx';
 
 class App extends Component {
 	constructor(props) {
@@ -18,27 +18,28 @@ class App extends Component {
 			process.env.REACT_APP_SOCKET_SERVER || 'ws://localhost:3001'
 		);
 
-		this.socket.onopen = function(event) {
+		this.socket.onopen = (event) => {
 			console.log('Connected to server');
 		};
 
     this.socket.onmessage = (event) => {
-
+			console.log("event", event)
       const parsedEvent = JSON.parse(event.data);
 
       switch(parsedEvent.type) {
         case "incomingMessage":
-          console.log(1, parsedEvent);
           const messages = parsedEvent;
           this.setState(prevState => ({ messages: [...prevState.messages, messages]}));
           break;
         case "incomingNotification":
-          console.log(2, parsedEvent);
           const notification = parsedEvent;
           this.setState(prevState => ({ messages: [...prevState.messages, notification]}));
           break;
+				case "userConnect":
+					this.setState({ numberOfUsers: parsedEvent.userCount});
+				case "userDisconnect":
+					this.setState({ numberOfUsers: parsedEvent.userCount});
         default:
-          throw new Error("Unknown event type " + data.type);
       }
     }
   }
@@ -65,17 +66,13 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<nav className="navbar">
-					<a href="/" className="navbar-brand">
-						Chatty
-					</a>
-				</nav>
 				<MessageList messages={this.state.messages} />
 				<ChatBar
 					username={this.state.currentUser.username}
 					createNewMessage={this.createNewMessage}
 					updateUser={this.updateUser}
 				/>
+				<NavBar numberOfUsers={this.state.numberOfUsers} />
 			</div>
 		);
 	}
