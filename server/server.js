@@ -13,7 +13,26 @@ const server = express()
 
 const wss = new SocketServer({ server });
 
+
 wss.on('connection', ws => {
+	const colours = ['#0E0B26', '#1763A6', '#25D9C7', '#D1D99A', '#F29B88'];
+
+  function getIndex(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  let randomIndex = getIndex(4);
+  console.log(randomIndex);
+
+  const colour = colours[randomIndex];
+  console.log(colour);
+
+	const colourObj = JSON.stringify({
+		type: 'colour',
+    colour: colour
+	});
+
+  ws.send(colourObj);
 
 	let numberOfUsers = wss.clients.size;
 	const userConnect = JSON.stringify({
@@ -46,18 +65,16 @@ wss.on('connection', ws => {
 	});
 
 	ws.on('close', () => {
+		numberOfUsers = wss.clients.size;
+		const userDisconnect = JSON.stringify({
+			type: 'userDisconnect',
+			userCount: numberOfUsers
+		});
 
-  numberOfUsers = wss.clients.size;
-  const userDisconnect = JSON.stringify({
-    type: 'userDisconnect',
-    userCount: numberOfUsers
-  });
-
-  wss.clients.forEach(function each(client) {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(userDisconnect);
-    }
-  });
-});
-
+		wss.clients.forEach(function each(client) {
+			if (client.readyState === WebSocket.OPEN) {
+				client.send(userDisconnect);
+			}
+		});
+	});
 });

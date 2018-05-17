@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class MessageList extends Component {
+class NavBar extends Component {
   render() {
     return (
       <nav className="navbar">
@@ -16,9 +16,9 @@ class MessageList extends Component {
   }
 }
 
-MessageList.propTypes = {
+NavBar.propTypes = {
 	currentUser: PropTypes.object,
   messages: PropTypes.array
 };
 
-export default MessageList;
+export default NavBar;
