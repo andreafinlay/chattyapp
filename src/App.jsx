@@ -3,7 +3,7 @@ import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 import Message from './Message.jsx';
 import NavBar from './NavBar.jsx';
-
+// Main app component, contains state for all components
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -11,7 +11,7 @@ class App extends Component {
 		this.state = {
 			currentUser: { username: 'Anonymous' },
 			messages: [],
-			colour: "black"
+			colour: 'black'
 		};
 	}
 
@@ -25,13 +25,11 @@ class App extends Component {
 		};
 
 		this.socket.onmessage = event => {
-			// console.log('event', event);
 			const parsedEvent = JSON.parse(event.data);
 
 			switch (parsedEvent.type) {
 				case 'incomingMessage':
 					const messages = parsedEvent;
-					console.log(messages);
 					this.setState(prevState => ({
 						messages: [...prevState.messages, messages]
 					}));
@@ -49,7 +47,7 @@ class App extends Component {
 					this.setState({ numberOfUsers: parsedEvent.userCount });
 					break;
 				case 'colour':
-				console.log("parsedevet", parsedEvent.colour);
+					console.log('parsedevet', parsedEvent.colour);
 					this.setState({ colour: parsedEvent.colour });
 					break;
 				default:
@@ -64,7 +62,7 @@ class App extends Component {
 			content: newMessageInput,
 			colour: this.state.colour
 		};
-		console.log("newmessage" ,newMessage);
+		console.log('newmessage', newMessage);
 		this.socket.send(JSON.stringify(newMessage));
 	};
 
