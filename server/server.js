@@ -14,7 +14,7 @@ const server = express()
 const wss = new SocketServer({ server });
 
 wss.on('connection', ws => {
-	// Assigns new colours to each user on connection
+	// Assigns a random new colour to each user on connection
 	const colours = ['#0E0B26', '#1763A6', '#25D9C7', '#D1D99A', '#F29B88'];
 
 	function getIndex(max) {
@@ -29,7 +29,7 @@ wss.on('connection', ws => {
 	});
 
 	ws.send(userColour);
-	// Sends number of active users to be displayed in navbar
+	// Sends number of active users to client to be displayed in navbar
 	let numberOfUsers = wss.clients.size;
 	const userConnect = JSON.stringify({
 		type: 'userConnect',
@@ -55,7 +55,7 @@ wss.on('connection', ws => {
 				parsedMsg.type = 'incomingNotification';
 				break;
 			default:
-				throw new Error('Message type not recognized.')
+				throw new Error('Server Error: Client message type not recognized.');
 		}
 
 		const returnMsg = JSON.stringify(parsedMsg);
@@ -65,7 +65,6 @@ wss.on('connection', ws => {
 			}
 		});
 	});
-
 	// Sends number of users on user disconnect
 	ws.on('close', () => {
 		numberOfUsers = wss.clients.size;

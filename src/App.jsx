@@ -10,8 +10,7 @@ class App extends Component {
 
 		this.state = {
 			currentUser: { username: 'Anonymous' },
-			messages: [],
-			colour: 'black'
+			messages: []
 		};
 	}
 
@@ -23,10 +22,10 @@ class App extends Component {
 		this.socket.onopen = event => {
 			console.log('Connected to server');
 		};
-
+		// Receives message and notif data from server
 		this.socket.onmessage = event => {
 			const parsedEvent = JSON.parse(event.data);
-
+			// Parses server response and updates App state accordingly
 			switch (parsedEvent.type) {
 				case 'incomingMessage':
 					const messages = parsedEvent;
@@ -47,14 +46,14 @@ class App extends Component {
 					this.setState({ numberOfUsers: parsedEvent.userCount });
 					break;
 				case 'colour':
-					console.log('parsedevet', parsedEvent.colour);
 					this.setState({ colour: parsedEvent.colour });
 					break;
 				default:
+					throw new Error('Client Error: Server response type not recognized.');
 			}
 		};
 	}
-
+	// Handler functions called in ChatBar component
 	createNewMessage = newMessageInput => {
 		const newMessage = {
 			type: 'postMessage',
@@ -62,7 +61,6 @@ class App extends Component {
 			content: newMessageInput,
 			colour: this.state.colour
 		};
-		console.log('newmessage', newMessage);
 		this.socket.send(JSON.stringify(newMessage));
 	};
 
@@ -75,9 +73,8 @@ class App extends Component {
 		this.setState({ currentUser: newUser });
 		this.socket.send(JSON.stringify(newUser));
 	};
-
+	// Renders all major subcomponents
 	render() {
-		console.log('app: ', this.state);
 		return (
 			<div>
 				<MessageList
