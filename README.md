@@ -1,45 +1,55 @@
-React Boilerplate
-=====================
+# Chatty
 
-A minimal and light dev environment for ReactJS.
+Chatty is an app that allows multiple users to communicate with each other in real-time. :speech_balloon:
 
-### Usage
+Chatty uses WebSockets to allow connected users to share messages in a common chat room. Users have the option to enter their name. All users see messages as well as notifications when a user updates their name.
 
-Clone the boilerplate and create your own git repo.
+This app was built using [React](https://reactjs.org/), [Babel](https://babeljs.io/), and [Sass](https://sass-lang.com/) on the front-end, and [Express](https://expressjs.com/) and [WebSockets](https://github.com/websockets/ws) on the back-end.
 
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
+## Final Product
 
-Install the dependencies and start the server.
+Entering the chatroom and sending a message
 
-```
-npm install
-npm start
-open http://localhost:3000
-```
+!["Create message"]()
 
-### Static Files
+Updating username
 
-You can store static files like images, fonts, etc in the `build` folder.
+!["Update username"]()
 
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
+Chatty main interface
 
-### Linting
+!["Main interface"]()
 
-This boilerplate project includes React ESLint configuration.
+## Getting Started
 
-```
-npm run lint
-```
+1. From the root directory, install dependencies (`npm install`).
+2. From the `server` directory, install dependencies (`npm install`).
+3. From the root directory, start the WebPack server (`npm start`). The app will connect on port 3000.
+4. From the `server` directory, in a new tab, start the WebSockets server (`npm start`). The server will connect on port 3001.
+5. Visit <http://localhost:3000/> in your browser. Open multiple sessions to communicate between them in real-time.
+6. Start chatting!
 
-### Dependencies
+## React Dependencies
 
-* React
-* Webpack
+* [babel-core](https://babeljs.io/)
 * [babel-loader](https://github.com/babel/babel-loader)
+* [css-loader](https://www.npmjs.com/package/css-loader)
+* [eslint](https://eslint.org/)
+* [node-sass](https://www.npmjs.com/package/node-sass)
+* [react](https://reactjs.org/)
+* [react-dom](https://www.npmjs.com/package/react-dom)
+* [sass-loader](https://www.npmjs.com/package/sass-loader)
+* [sockjs-client](https://www.npmjs.com/package/sockjs-client)
+* [style-loader](https://www.npmjs.com/package/style-loader)
+* [webpack](https://webpack.js.org/)
+* [webpack-dev-server](https://www.npmjs.com/package/webpack-dev-server)
+* [prop-types](https://www.npmjs.com/package/prop-types)
+* [Webpack](https://webpack.js.org/)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+* [ws](https://github.com/websockets/ws)
+
+## Server Dependencies
+
+* [express](https://expressjs.com/)
+* [uuid](https://www.npmjs.com/package/uuid)
+* [ws](https://github.com/websockets/ws)
