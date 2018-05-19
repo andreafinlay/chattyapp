@@ -2,7 +2,7 @@
 
 Chatty is an app that allows multiple users to communicate with each other in real-time. :speech_balloon:
 
-Chatty uses WebSockets to allow connected users to share messages in a common chat room. Users have the option to enter their name. All users see messages as well as notifications when a user updates their name.
+Chatty uses WebSockets to allow connected users to share messages in a common chat room. Users have the option to enter and change their display name. All users see messages as well as notifications when a user updates their name.
 
 This app was built using [React](https://reactjs.org/), [Babel](https://babeljs.io/), and [Sass](https://sass-lang.com/) on the front-end, and [Express](https://expressjs.com/) and [WebSockets](https://github.com/websockets/ws) on the back-end.
 
