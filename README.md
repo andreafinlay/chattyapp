@@ -27,7 +27,6 @@ Chatty interface
 3. From the root directory, start the WebPack server (`npm start`). The app will connect on port 3000.
 4. From the `server` directory, start the WebSockets server (`npm start`). The server will connect on port 3001.
 5. Visit <http://localhost:3000/> in your browser. Open multiple sessions to communicate between them in real-time.
-6. Start chatting!
 
 ## React Dependencies
 
