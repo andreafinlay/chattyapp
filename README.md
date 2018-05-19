@@ -16,10 +16,6 @@ Updating username
 
 !["Update username"](https://github.com/aunomy/chattyapp/blob/master/docs/change-name.gif?raw=true)
 
-Chatty interface
-
-!["Main interface"](https://github.com/aunomy/chattyapp/blob/master/docs/interface.png?raw=true)
-
 ## Getting Started
 
 1. From the root directory, install dependencies (`npm install`).
