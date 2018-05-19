@@ -10,15 +10,15 @@ This app was built using [React](https://reactjs.org/), [Babel](https://babeljs.
 
 Entering the chatroom and sending a message
 
-!["Create message"]()
+!["Create message"](https://github.com/aunomy/chattyapp/blob/master/docs/send-message.gif?raw=true)
 
 Updating username
 
-!["Update username"]()
+!["Update username"](https://github.com/aunomy/chattyapp/blob/master/docs/change-name.gif?raw=true)
 
-Chatty main interface
+Chatty interface
 
-!["Main interface"]()
+!["Main interface"](https://github.com/aunomy/chattyapp/blob/master/docs/interface.png?raw=true)
 
 ## Getting Started
 
